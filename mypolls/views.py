@@ -4,6 +4,12 @@ from django.urls import reverse
 from django.db.models import F
 from .models import Question, Choice
 
+def get_votes(choice):
+    return choice.votes
+
+def get_text(choice):
+    return choice.choice_text
+
 def index(request):
     # return HttpResponse("You're at the index page")
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -16,7 +22,13 @@ def vote(request, question_id):
 
 def results(request, question_id):
     q = get_object_or_404(Question, pk=question_id)
-    return render(request, 'mypolls/results.html', {'question': q})
+    num_values = list(map(get_votes, q.choice_set.all()))
+    text_values = list(map(get_text, q.choice_set.all()))
+    return render(request, 'mypolls/results.html', {
+        'question': q,
+        'num_values': num_values,
+        'text_values': '|'.join(text_values),
+        'upper_limit': max(num_values) + max(num_values) // 10 + 1 })
 
 def process_vote(request, question_id):
     q = get_object_or_404(Question, pk=question_id)

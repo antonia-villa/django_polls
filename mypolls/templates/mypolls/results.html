@@ -10,4 +10,22 @@
   {% endfor %}
 </ul>
 
+<h2>Cool chart of your votes:</h2>
+{% load chart_tags %}
+{% chart %}
+     chxr=0,0,{{upper_limit}}
+     chxt=y,x
+     chxl=1:|{{ text_values }}
+     chbh=a
+     chs=440x220
+     cht=bvs
+     chco=4D89F9
+     chds=0,{{ upper_limit }}
+     chd=t:{{ num_values|join:',' }}
+     chtt=Vote+Tallies
+{% endchart %}
+
+<div>
+  <a href="/polls/{{question.id}}/vote/">Vote Again</a>
+</div>
 {% endblock %}

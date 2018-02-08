@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mypolls'
+    'mypolls',
+    'chart_tools'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'polls_app.wsgi.application'
-APPEND_SLASH = False
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
